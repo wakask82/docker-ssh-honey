@@ -1,0 +1,15 @@
+services:
+    ssh-honeypot:
+        image: local:ssh-honeypot
+        container_name: ssh-honeypot
+        volumes:
+            - ./log:/log
+        ports:
+            - 22:22
+        restart: unless-stopped
+        networks:
+            ssh-honeypot_ext:
+
+networks:
+    ssh-honeypot_ext:
+        external: true
