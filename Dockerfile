@@ -1,11 +1,12 @@
 FROM alpine:3.6
 RUN apk add --no-cache git libpcap-dev libssh-dev screen gcc musl-dev nano openssl build-base bash openssh geoip curl netcat-openbsd clang json-c-dev libssh2-dev
-RUN git clone https://github.com/droberson/ssh-honeypot.git
+RUN git clone https://github.com/x1alfa/ssh-honeypot.git
 WORKDIR /ssh-honeypot/
 RUN make
 RUN ssh-keygen -t rsa -f ./ssh-honeypot.rsa
 RUN chmod 777 /ssh-honeypot/bin/ssh-honeypot
 RUN mv /ssh-honeypot/bin/ssh-honeypot /bin/ssh-honeypot
+RUN mkdir /log
 EXPOSE 22
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh
